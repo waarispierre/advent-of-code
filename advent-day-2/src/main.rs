@@ -3,7 +3,9 @@ use std::fs;
 fn main() -> std::io::Result<()> {
     let data = read_list()?;
 
+    //part one
     let (_safe_reports_without_dampening, updated_report_data) = part_one(data.clone())?;
+    //part two
     let mut _safe_reports_with_dampening = part_two(updated_report_data.clone())?;
 
     let safe_reports = _safe_reports_with_dampening + _safe_reports_without_dampening;
