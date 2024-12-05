@@ -8,7 +8,7 @@ fn main() -> std::io::Result<()> {
     let xmas_occurence_count = calculate_occurence_of_word(word_to_search, word_matrix.clone())?;
 
     let x_mas_occurence_count = calculate_occurence_of_x_mas(word_matrix.clone())?;
-    
+
     println!("Part one answer: {}", xmas_occurence_count);
     println!("Part two answer: {}", x_mas_occurence_count);
 
@@ -258,16 +258,14 @@ fn calculate_occurence_of_x_mas(word_matrix: Vec<Vec<String>>) -> std::io::Resul
                             .next()
                             .unwrap()
                             == 'S'
-                        {
-                            if word_matrix[row + 1][col + 1]
+                            && word_matrix[row + 1][col + 1]
                                 .clone()
                                 .chars()
                                 .next()
                                 .unwrap()
                                 == 'M'
-                            {
-                                diagonal_count += 1;
-                            }
+                        {
+                            diagonal_count += 1;
                         }
                         if word_matrix[row + 1][col - 1]
                             .clone()
@@ -275,16 +273,14 @@ fn calculate_occurence_of_x_mas(word_matrix: Vec<Vec<String>>) -> std::io::Resul
                             .next()
                             .unwrap()
                             == 'S'
-                        {
-                            if word_matrix[row - 1][col + 1]
+                            && word_matrix[row - 1][col + 1]
                                 .clone()
                                 .chars()
                                 .next()
                                 .unwrap()
                                 == 'M'
-                            {
-                                diagonal_count += 1;
-                            }
+                        {
+                            diagonal_count += 1;
                         }
                         if word_matrix[row - 1][col - 1]
                             .clone()
@@ -292,16 +288,14 @@ fn calculate_occurence_of_x_mas(word_matrix: Vec<Vec<String>>) -> std::io::Resul
                             .next()
                             .unwrap()
                             == 'M'
-                        {
-                            if word_matrix[row + 1][col + 1]
+                            && word_matrix[row + 1][col + 1]
                                 .clone()
                                 .chars()
                                 .next()
                                 .unwrap()
                                 == 'S'
-                            {
-                                diagonal_count += 1;
-                            }
+                        {
+                            diagonal_count += 1;
                         }
                         if word_matrix[row + 1][col - 1]
                             .clone()
@@ -309,16 +303,14 @@ fn calculate_occurence_of_x_mas(word_matrix: Vec<Vec<String>>) -> std::io::Resul
                             .next()
                             .unwrap()
                             == 'M'
-                        {
-                            if word_matrix[row - 1][col + 1]
+                            && word_matrix[row - 1][col + 1]
                                 .clone()
                                 .chars()
                                 .next()
                                 .unwrap()
                                 == 'S'
-                            {
-                                diagonal_count += 1;
-                            }
+                        {
+                            diagonal_count += 1;
                         }
 
                         if diagonal_count == 2 {
@@ -329,7 +321,7 @@ fn calculate_occurence_of_x_mas(word_matrix: Vec<Vec<String>>) -> std::io::Resul
             }
         }
     }
-    return Ok(words_found);
+    return Ok(x_mas_count);
 }
 
 fn calculate_if_in_bounds(
