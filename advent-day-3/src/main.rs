@@ -28,18 +28,18 @@ fn part_one(data: String) -> std::io::Result<i32> {
 }
 
 fn part_two(input: String) -> std::io::Result<i32> {
-    let parts: Vec<String> = input
+    let split_corrupted_data: Vec<String> = input
         .split("do()")
         .map(|s| s.parse::<String>().unwrap())
         .collect();
 
-    let mut parts_without_dont: Vec<String> = Vec::new();
+    let mut split_corrupted_data_without_dont: Vec<String> = Vec::new();
 
-    for part in parts.iter() {
+    for part in split_corrupted_data.iter() {
         if let Some(index) = part.find("don't()") {
-            parts_without_dont.push((part[..index]).to_string());
+            split_corrupted_data_without_dont.push((part[..index]).to_string());
         } else {
-            parts_without_dont.push(part.to_string());
+            split_corrupted_data_without_dont.push(part.to_string());
         }
     }
 
