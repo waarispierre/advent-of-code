@@ -6,7 +6,11 @@ fn main() -> std::io::Result<()> {
 
     let word_to_search: String = ("XMAS").to_string();
     let xmas_occurence_count = calculate_occurence_of_word(word_to_search, word_matrix.clone())?;
+
+    let x_mas_occurence_count = calculate_occurence_of_x_mas(word_matrix.clone())?;
+    
     println!("Part one answer: {}", xmas_occurence_count);
+    println!("Part two answer: {}", x_mas_occurence_count);
 
     Ok(())
 }
@@ -226,6 +230,100 @@ fn calculate_occurence_of_word(
                             words_found += 1;
                         }
                         count += 1;
+                    }
+                }
+            }
+        }
+    }
+    return Ok(words_found);
+}
+
+fn calculate_occurence_of_x_mas(word_matrix: Vec<Vec<String>>) -> std::io::Result<i32> {
+    let rows = word_matrix.len().try_into().unwrap();
+    let columns = word_matrix[0].len().try_into().unwrap();
+
+    let mut x_mas_count = 0;
+
+    for row in 0..rows {
+        if row > 0 && row < rows - 1 {
+            for col in 0..columns {
+                if col > 0 && col < columns - 1 {
+                    let middle_letter: char = word_matrix[row][col].clone().chars().next().unwrap();
+                    if middle_letter == 'A' {
+                        let mut diagonal_count = 0;
+
+                        if word_matrix[row - 1][col - 1]
+                            .clone()
+                            .chars()
+                            .next()
+                            .unwrap()
+                            == 'S'
+                        {
+                            if word_matrix[row + 1][col + 1]
+                                .clone()
+                                .chars()
+                                .next()
+                                .unwrap()
+                                == 'M'
+                            {
+                                diagonal_count += 1;
+                            }
+                        }
+                        if word_matrix[row + 1][col - 1]
+                            .clone()
+                            .chars()
+                            .next()
+                            .unwrap()
+                            == 'S'
+                        {
+                            if word_matrix[row - 1][col + 1]
+                                .clone()
+                                .chars()
+                                .next()
+                                .unwrap()
+                                == 'M'
+                            {
+                                diagonal_count += 1;
+                            }
+                        }
+                        if word_matrix[row - 1][col - 1]
+                            .clone()
+                            .chars()
+                            .next()
+                            .unwrap()
+                            == 'M'
+                        {
+                            if word_matrix[row + 1][col + 1]
+                                .clone()
+                                .chars()
+                                .next()
+                                .unwrap()
+                                == 'S'
+                            {
+                                diagonal_count += 1;
+                            }
+                        }
+                        if word_matrix[row + 1][col - 1]
+                            .clone()
+                            .chars()
+                            .next()
+                            .unwrap()
+                            == 'M'
+                        {
+                            if word_matrix[row - 1][col + 1]
+                                .clone()
+                                .chars()
+                                .next()
+                                .unwrap()
+                                == 'S'
+                            {
+                                diagonal_count += 1;
+                            }
+                        }
+
+                        if diagonal_count == 2 {
+                            x_mas_count += 1;
+                        }
                     }
                 }
             }
