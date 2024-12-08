@@ -16,7 +16,7 @@ fn find_current_location(map: Vec<Vec<char>>) -> std::io::Result<((usize, usize)
                 break;
             }
         }
-        if location != (0,0) {
+        if location != (0, 0) {
             break;
         }
     }
@@ -50,7 +50,7 @@ fn read_data_into_matrix() -> std::io::Result<Vec<Vec<char>>> {
 }
 
 fn part_one(mut map: Vec<Vec<char>>) -> std::io::Result<usize> {
-    let (mut current_location,mut current_direction) = find_current_location(map.clone())?;
+    let (mut current_location, mut current_direction) = find_current_location(map.clone())?;
     println!("{} {:?}", current_direction, current_location);
     let mut guard_positions: Vec<(usize, usize)> = Vec::new();
     guard_positions.push(current_location);
@@ -58,7 +58,11 @@ fn part_one(mut map: Vec<Vec<char>>) -> std::io::Result<usize> {
     let col_limit = map[0].len() - 1;
     let row_limit = map.len() - 1;
 
-    while current_location.0 < row_limit && current_location.0 > 0 && current_location.1 > 0 && current_location.1 < col_limit {
+    while current_location.0 < row_limit
+        && current_location.0 > 0
+        && current_location.1 > 0
+        && current_location.1 < col_limit
+    {
         if current_direction == '^' {
             let next_location_char = map[current_location.0 - 1][current_location.1];
             map[current_location.0][current_location.1] = '.';
@@ -67,10 +71,10 @@ fn part_one(mut map: Vec<Vec<char>>) -> std::io::Result<usize> {
                 current_location = (current_location.0, current_location.1 + 1);
                 current_direction = '>';
                 map[current_location.0][current_location.1] = current_direction;
-            }else{
-                current_location = (current_location.0 -1, current_location.1);
+            } else {
+                current_location = (current_location.0 - 1, current_location.1);
                 map[current_location.0][current_location.1] = current_direction;
-            }    
+            }
         } else if current_direction == 'v' {
             let next_location_char = map[current_location.0 + 1][current_location.1];
             map[current_location.0][current_location.1] = '.';
@@ -79,12 +83,10 @@ fn part_one(mut map: Vec<Vec<char>>) -> std::io::Result<usize> {
                 current_location = (current_location.0, current_location.1 - 1);
                 current_direction = '<';
                 map[current_location.0][current_location.1] = current_direction;
-
-            }else{
+            } else {
                 current_location = (current_location.0 + 1, current_location.1);
                 map[current_location.0][current_location.1] = current_direction;
-
-            }    
+            }
         } else if current_direction == '>' {
             let next_location_char = map[current_location.0][current_location.1 + 1];
             map[current_location.0][current_location.1] = '.';
@@ -93,12 +95,10 @@ fn part_one(mut map: Vec<Vec<char>>) -> std::io::Result<usize> {
                 current_location = (current_location.0 + 1, current_location.1);
                 current_direction = 'v';
                 map[current_location.0][current_location.1] = current_direction;
-
-            }else{
+            } else {
                 current_location = (current_location.0, current_location.1 + 1);
                 map[current_location.0][current_location.1] = current_direction;
-
-            }    
+            }
         } else if current_direction == '<' {
             let next_location_char = map[current_location.0][current_location.1 - 1];
             map[current_location.0][current_location.1] = '.';
@@ -107,16 +107,14 @@ fn part_one(mut map: Vec<Vec<char>>) -> std::io::Result<usize> {
                 current_location = (current_location.0 - 1, current_location.1);
                 current_direction = '^';
                 map[current_location.0][current_location.1] = current_direction;
-
-            }else{
+            } else {
                 current_location = (current_location.0, current_location.1 - 1);
                 map[current_location.0][current_location.1] = current_direction;
-
-            }    
+            }
         }
         guard_positions.push(current_location);
     }
-    
+
     guard_positions.sort_unstable();
     guard_positions.dedup();
 
